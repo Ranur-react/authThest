@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Text, View, Button} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 GoogleSignin.configure({
   webClientId:
     '272733356002-o7944fr2622e9ut10fvv38v16h9peikp.apps.googleusercontent.com',
@@ -10,8 +10,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'rahmatnur@barangmudo.com',
-      password: 'Padri0@@',
+      email: 'rahmatnur844@gmail.com',
+      password: 'Padri0@@@',
     };
   }
   onGooglePressButton = () => {
@@ -24,7 +24,7 @@ export default class App extends Component {
       } catch (err) {
         console.error('play services are not available');
       }
-      const {accessToken, idToken} = await GoogleSignin.signIn();
+      const { accessToken, idToken } = await GoogleSignin.signIn();
       console.log(
         '==============Sign Google Token Progress======================',
       );
@@ -39,7 +39,8 @@ export default class App extends Component {
       const signstatus = auth().signInWithCredential(googlecrudential);
       const userDetails = await GoogleSignin.getCurrentUser();
       console.log('================Sign Progress====================');
-      console.log(!signstatus?'Sign Gagal':'Sign succes');
+      console.log(!signstatus ? 'Sign Gagal' : 'Sign succes');
+      console.log('====================================');
       console.log(userDetails);
       console.log('====================================');
     };
@@ -75,12 +76,29 @@ export default class App extends Component {
     this.loginuser();
   }
 
+
   render() {
+    const cekuser = async () => {
+      const userDetails = await GoogleSignin.getCurrentUser();
+      console.log(userDetails);
+    }
+    const logout = async () => {
+      const signout = await GoogleSignin.signOut();
+      console.log(signout);
+    }
     return (
       <View>
         <Button
           title="Google Sign-In"
           onPress={() => this.onGooglePressButton()}
+        />
+        <Button
+          title="Cek User"
+          onPress={() => cekuser()}
+        />
+        <Button
+          title="Logout"
+          onPress={() => logout()}
         />
       </View>
     );
